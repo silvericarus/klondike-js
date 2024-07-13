@@ -1,0 +1,114 @@
+body {
+    background-color: #E0E4CC;
+}
+
+.is-klondikebtn {
+    color: #000;
+    border-color: transparent;
+    background-color: #69D2E7;
+}
+.is-klondikebtn:hover {
+    background-color: #A7DBD8;
+}
+
+.card, .backwards {
+    background-color: #FA6900;
+}
+
+.card, .frontwards {
+    background-color: #F38630;
+}
+
+.border {
+    border: 1px solid #000;
+}
+
+/*Card front design*/
+.card-poker {
+    position: relative;
+    width: 135px;
+    height: 215px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.card-header,
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-rank {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.card-suit-red {
+    font-size: 1.5em;
+    color: red;
+}
+
+.card-suit-black {
+    font-size: 1.5em;
+    color: black;
+}
+
+.card-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.card-suit-big-red {
+    font-size: 4em;
+    color: red;
+}
+
+.card-suit-big-black {
+    font-size: 4em;
+    color: black;
+}
+
+.card-footer-content {
+    transform: rotate(180deg);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/*Card back design*/
+.card-poker, .card-back {
+    position: relative;
+    width: 135px;
+    height: 215px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+}
+  
+.card-back {
+    background-color: #2b2b2b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.card-back-pattern {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(45deg, #f3f3f3 25%, transparent 25%, transparent 75%, #f3f3f3 75%, #f3f3f3), linear-gradient(45deg, #f3f3f3 25%, transparent 25%, transparent 75%, #f3f3f3 75%, #f3f3f3);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    border-radius: 10px;
+}
+  
