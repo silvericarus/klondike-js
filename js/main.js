@@ -19,67 +19,81 @@ function startGame() {
             let selected = randomizeCard();
             suit = selected.suit;
             rank = selected.rank;
-            let card = document.createElement("div");
-            card.classList.add("card-poker");
 
-            let cardHeader = document.createElement("div");
-            cardHeader.classList.add("card-header");
-
-            let cardRank = document.createElement("div");
-            cardRank.classList.add("card-rank");
-            cardRank.innerHTML = rank;
-
-            let cardSuit = document.createElement("div");
-            cardSuit.classList.add("card-suit");
-            if (suit == "&hearts;" || suit == "&diams;") {
-                cardSuit.classList.add("card-suit-red");
+            if (i != index) {
+                let cardBack = document.createElement("div");
+                cardBack.classList.add("card-back");
+                let cardBackPattern = document.createElement("div");
+                cardBackPattern.classList.add("card-back-pattern");
+                cardBack.appendChild(cardBackPattern);
+                cardBack.style.zIndex = `${i}`;
+                cardBack.style.top = `${-175 * i}px`;
+                element.appendChild(cardBack);
             } else {
-                cardSuit.classList.add("card-suit-black");
+                let card = document.createElement("div");
+                card.classList.add("card-poker");
+                card.setAttribute("draggable", "true");
+                card.setAttribute("ondragstart", "drag(event)");
+                let cardHeader = document.createElement("div");
+                cardHeader.classList.add("card-header");
+
+                let cardRank = document.createElement("div");
+                cardRank.classList.add("card-rank");
+                cardRank.innerHTML = rank;
+
+                let cardSuit = document.createElement("div");
+                cardSuit.classList.add("card-suit");
+                if (suit == "&hearts;" || suit == "&diams;") {
+                    cardSuit.classList.add("card-suit-red");
+                } else {
+                    cardSuit.classList.add("card-suit-black");
+                }
+                cardSuit.innerHTML = suit;
+
+                cardHeader.appendChild(cardRank);
+                cardHeader.appendChild(cardSuit);
+                card.appendChild(cardHeader);
+
+                let cardBody = document.createElement("div");
+                cardBody.classList.add("card-body");
+
+                let cardSuitBig = document.createElement("div");
+                if (suit == "&hearts;" || suit == "&diams;") {
+                    cardSuitBig.classList.add("card-suit-big-red");
+                } else {
+                    cardSuitBig.classList.add("card-suit-big-black");
+                }
+                cardSuitBig.innerHTML = suit;
+
+                cardBody.appendChild(cardSuitBig);
+                card.appendChild(cardBody);
+
+                let cardFooter = document.createElement("div");
+                cardFooter.classList.add("card-footer");
+
+                let cardFooterContent = document.createElement("div");
+                cardFooterContent.classList.add("card-footer-content");
+
+                let cardRank1 = document.createElement("div");
+                cardRank1.classList.add("card-rank");
+                cardRank1.innerHTML = rank;
+                
+                let cardSuit1 = document.createElement("div");
+                if (suit == "&hearts;" || suit == "&diams;") {
+                    cardSuit1.classList.add("card-suit-red");
+                } else {
+                    cardSuit1.classList.add("card-suit-black");
+                }
+                cardSuit1.innerHTML = suit;
+
+                cardFooterContent.appendChild(cardRank1);
+                cardFooterContent.appendChild(cardSuit1);
+                cardFooter.appendChild(cardFooterContent);
+                card.appendChild(cardFooter);
+                card.style.zIndex = `${i}`;
+                card.style.top = `${-175 * i}px`;
+                element.appendChild(card);
             }
-            cardSuit.innerHTML = suit;
-
-            cardHeader.appendChild(cardRank);
-            cardHeader.appendChild(cardSuit);
-            card.appendChild(cardHeader);
-
-            let cardBody = document.createElement("div");
-            cardBody.classList.add("card-body");
-
-            let cardSuitBig = document.createElement("div");
-            if (suit == "&hearts;" || suit == "&diams;") {
-                cardSuitBig.classList.add("card-suit-big-red");
-            } else {
-                cardSuitBig.classList.add("card-suit-big-black");
-            }
-            cardSuitBig.innerHTML = suit;
-
-            cardBody.appendChild(cardSuitBig);
-            card.appendChild(cardBody);
-
-            let cardFooter = document.createElement("div");
-            cardFooter.classList.add("card-footer");
-
-            let cardFooterContent = document.createElement("div");
-            cardFooterContent.classList.add("card-footer-content");
-
-            let cardRank1 = document.createElement("div");
-            cardRank1.classList.add("card-rank");
-            cardRank1.innerHTML = rank;
-            
-            let cardSuit1 = document.createElement("div");
-            if (suit == "&hearts;" || suit == "&diams;") {
-                cardSuit1.classList.add("card-suit-red");
-            } else {
-                cardSuit1.classList.add("card-suit-black");
-            }
-            cardSuit1.innerHTML = suit;
-
-            cardFooterContent.appendChild(cardRank1);
-            cardFooterContent.appendChild(cardSuit1);
-            cardFooter.appendChild(cardFooterContent);
-            card.appendChild(cardFooter);
-            
-            element.appendChild(card);
         }
     });
 }

@@ -1,5 +1,6 @@
 body {
     background-color: #E0E4CC;
+    user-select: none;
 }
 
 .is-klondikebtn {
@@ -112,3 +113,51 @@ body {
     border-radius: 10px;
 }
   
+.grid-klondike {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 500px;
+    height: 500px;
+    position: relative;
+}
+
+.stack-cell {
+    position: relative;
+}
+
+.foundation {
+    border: 1px solid #000;
+    width: 135px;
+    height: 215px;
+    position: relative;
+    background-color: #E0E4CC;
+    border-radius: 10px;
+}
+
+.foundation#hearts {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/44/Coraz%C3%B3n.svg');
+    background-size: 45px 45px; /* Adjust the size of the hearts */
+    background-color: rgba(255, 0, 0, 0.4);
+    background-repeat: repeat;
+}
+
+.foundation#diamonds {
+    background-image: url('https://upload.wikimedia.org/wikipedia/en/1/1f/Card_diamond.svg');
+    background-size: 45px 45px; /* Adjust the size of the diamonds */
+    background-color: rgba(255, 0, 0, 0.4);
+    background-repeat: repeat;
+}
+
+.foundation#clubs {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/8a/SuitClubs.svg');
+    background-size: 45px 45px; /* Adjust the size of the clubs */
+    background-color: rgba(0, 0, 0, 0.4);
+    background-repeat: repeat;
+}
+
+.foundation#spades {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/5b/SuitSpades.svg');
+    background-size: 45px 45px; /* Adjust the size of the spades */
+    background-color: rgba(0, 0, 0, 0.4);
+    background-repeat: repeat;
+}

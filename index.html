@@ -8,6 +8,21 @@
         <link rel="stylesheet" href="./css/bulma.min.css">
         <link rel="stylesheet" href="./css/main.css">
         <script src="./js/main.js"></script>
+        <script>
+            function allowDrop(ev) {
+                ev.preventDefault();
+            }
+
+            function drag(ev) {
+                ev.dataTransfer.setData("text", ev.target.id);
+            }
+
+            function drop(ev) {
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+            }
+        </script>
         <title>Klondike.js</title>
     </head>
     <body>
@@ -16,55 +31,36 @@
                 <div class="container">
                     <div class="columns">
                         <div class="column">
-                            <div class="grid border">
+                            <div class="grid">
                                 <div class="cell" id="deck">
                                     <div class="card-back">
                                         <div class="card-back-pattern"></div>
                                     </div>
                                 </div>
-                                <div class="cell" id="heap">
-                                    <div class="card-poker">
-                                        <div class="card-header">
-                                          <div class="card-rank">A</div>
-                                          <div class="card-suit-red">&hearts;</div>
-                                        </div>
-                                        <div class="card-body">
-                                          <div class="card-suit-big-red">&hearts;</div>
-                                        </div>
-                                        <div class="card-footer">
-                                          <div class="card-footer-content">
-                                            <div class="card-rank">A</div>
-                                            <div class="card-suit-red">&hearts;</div>
-                                          </div>
-                                        </div>
-                                    </div>
+                                <div class="cell foundation" id="heap">
                                 </div>
                             </div>
                         </div>
                         <div class="column is-three-quarters">
-                            <div class="grid border" id="playground">
-                                <div class="cell"></div>
-                                <div class="cell"></div>
-                                <div class="cell"></div>
-                                <div class="cell"></div>
-                                <div class="cell"></div>
-                                <div class="cell"></div>
-                                <div class="cell"></div>
+                            <div class="grid grid-klondike" id="playground">
+                                <div class="cell stack-cell"></div>
+                                <div class="cell stack-cell"></div>
+                                <div class="cell stack-cell"></div>
+                                <div class="cell stack-cell"></div>
+                                <div class="cell stack-cell"></div>
+                                <div class="cell stack-cell"></div>
+                                <div class="cell stack-cell"></div>
                             </div>
                         </div>
                         <div class="column">
-                            <div class="grid border">
-                                <div class="cell" id="hearts">
-                                    <div class="box"></div>
+                            <div class="grid">
+                                <div class="cell foundation" id="hearts">
                                 </div>
-                                <div class="cell" id="diamonds">
-                                    <div class="box"></div>
+                                <div class="cell foundation" id="diamonds">
                                 </div>
-                                <div class="cell" id="clubs">
-                                    <div class="box"></div>
+                                <div class="cell foundation" id="spades">
                                 </div>
-                                <div class="cell" id="spades">
-                                    <div class="box"></div>
+                                <div class="cell foundation" id="clubs">
                                 </div>
                             </div>
                         </div>
