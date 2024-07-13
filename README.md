@@ -4,6 +4,6 @@
 </p>
 <h1>Klondike.js</h1>
 
-[Color Palette](https://www.colourlovers.com/palette/92095/Giant_Goldfish)
-Heart SVG by Fibonacci, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons
+[Color Palette](https://www.colourlovers.com/palette/92095/Giant_Goldfish)<br>
+Heart SVG by Fibonacci, CC BY-SA 3.0 <http://creativecommons.org/licenses/by-sa/3.0/>, via Wikimedia Commons<br>
 Spades, Clubs and Diamonds SVG by F l a n k e r, Public domain, via Wikimedia Commons
