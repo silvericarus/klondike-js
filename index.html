@@ -1,72 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
-        <link rel="stylesheet" href="./css/bulma.min.css">
-        <link rel="stylesheet" href="./css/main.css">
-        <script src="./js/main.js"></script>
-        <script>
-            function allowDrop(ev) {
-                ev.preventDefault();
-            }
 
-            function drag(ev) {
-                ev.dataTransfer.setData("text", ev.target.id);
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/bulma.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon">
+    <script src="./js/main.js"></script>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
 
-            function drop(ev) {
-                ev.preventDefault();
-                var data = ev.dataTransfer.getData("text");
-                ev.target.appendChild(document.getElementById(data));
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            /*TODO modificar para que el z-index sea el correcto y el top se reprograme, 
+            tanto en la stack-cell como en los foundations*/
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            var draggedElement = document.getElementById(data);
+            var target = ev.target;
+
+            while (target && !target.classList.contains('stack-cell') && !target.classList.contains('foundation')) {
+                target = target.parentElement;
             }
-        </script>
-        <title>Klondike.js</title>
-    </head>
-    <body>
-        <section class="hero is-fullheight">
-            <div class="hero-body">
-                <div class="container">
-                    <div class="columns">
-                        <div class="column">
-                            <div class="grid">
-                                <div class="cell" id="deck">
-                                    <div class="card-back">
-                                        <div class="card-back-pattern"></div>
-                                    </div>
-                                </div>
-                                <div class="cell foundation" id="heap">
+            if (target && (target.classList.contains('stack-cell') || target.classList.contains('foundation'))) {
+                if (target.classList.contains('stack-cell') || target.classList.contains('foundation') || target.classList.contains('card-poker')) {
+                    target.appendChild(draggedElement);
+                }
+            }
+        }
+    </script>
+    <title>Klondike.js</title>
+</head>
+
+<body>
+    <section class="hero is-fullheight">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns">
+                    <div class="column">
+                        <div class="grid">
+                            <div class="cell" id="deck">
+                                <div class="card-back">
+                                    <div class="card-back-pattern"></div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="column is-three-quarters">
-                            <div class="grid grid-klondike" id="playground">
-                                <div class="cell stack-cell"></div>
-                                <div class="cell stack-cell"></div>
-                                <div class="cell stack-cell"></div>
-                                <div class="cell stack-cell"></div>
-                                <div class="cell stack-cell"></div>
-                                <div class="cell stack-cell"></div>
-                                <div class="cell stack-cell"></div>
+                            <div class="cell foundation" id="heap">
                             </div>
                         </div>
-                        <div class="column">
-                            <div class="grid">
-                                <div class="cell foundation" id="hearts">
-                                </div>
-                                <div class="cell foundation" id="diamonds">
-                                </div>
-                                <div class="cell foundation" id="spades">
-                                </div>
-                                <div class="cell foundation" id="clubs">
-                                </div>
+                    </div>
+                    <div class="column is-three-quarters">
+                        <div class="grid grid-klondike" id="playground">
+                            <div class="cell stack-cell" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            <div class="cell stack-cell" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            <div class="cell stack-cell" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            <div class="cell stack-cell" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            <div class="cell stack-cell" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            <div class="cell stack-cell" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                            <div class="cell stack-cell" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="grid">
+                            <div class="cell foundation" id="hearts" ondrop="drop(event)" ondragover="allowDrop(event)">
+                            </div>
+                            <div class="cell foundation" id="diamonds" ondrop="drop(event)"
+                                ondragover="allowDrop(event)">
+                            </div>
+                            <div class="cell foundation" id="spades" ondrop="drop(event)" ondragover="allowDrop(event)">
+                            </div>
+                            <div class="cell foundation" id="clubs" ondrop="drop(event)" ondragover="allowDrop(event)">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </body>
+        </div>
+    </section>
+</body>
+
 </html>

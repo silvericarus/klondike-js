@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     start();
 });
 
@@ -14,15 +14,17 @@ function startGame() {
     let playground = document.getElementById("playground");
     let suit;
     let rank;
+    let id;
     Array.from(playground.children).forEach((element, index) => {
         for (let i = 0; i < (index + 1); i++) {
             let selected = randomizeCard();
             suit = selected.suit;
             rank = selected.rank;
-
+            id = `${rank}${suit}`;
             if (i != index) {
                 let cardBack = document.createElement("div");
                 cardBack.classList.add("card-back");
+                cardBack.setAttribute("id", id);
                 let cardBackPattern = document.createElement("div");
                 cardBackPattern.classList.add("card-back-pattern");
                 cardBack.appendChild(cardBackPattern);
@@ -32,8 +34,10 @@ function startGame() {
             } else {
                 let card = document.createElement("div");
                 card.classList.add("card-poker");
+                card.setAttribute("id", id);
                 card.setAttribute("draggable", "true");
                 card.setAttribute("ondragstart", "drag(event)");
+                card.setAttribute("ondrop", "drop(event)");
                 let cardHeader = document.createElement("div");
                 cardHeader.classList.add("card-header");
 
@@ -77,7 +81,7 @@ function startGame() {
                 let cardRank1 = document.createElement("div");
                 cardRank1.classList.add("card-rank");
                 cardRank1.innerHTML = rank;
-                
+
                 let cardSuit1 = document.createElement("div");
                 if (suit == "&hearts;" || suit == "&diams;") {
                     cardSuit1.classList.add("card-suit-red");
