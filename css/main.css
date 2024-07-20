@@ -121,6 +121,14 @@ body {
     position: relative;
 }
 
+.grid-fondation {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 500px;
+    height: 215px;
+    position: relative;
+}
+
 .stack-cell {
     position: relative;
 }
@@ -132,32 +140,30 @@ body {
     position: relative;
     background-color: #E0E4CC;
     border-radius: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .foundation#hearts {
     background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/44/Coraz%C3%B3n.svg');
-    background-size: 45px 45px; /* Adjust the size of the hearts */
+    background-size: 45px 45px;
     background-color: rgba(255, 0, 0, 0.4);
-    background-repeat: repeat;
 }
 
 .foundation#diamonds {
     background-image: url('https://upload.wikimedia.org/wikipedia/en/1/1f/Card_diamond.svg');
-    background-size: 45px 45px; /* Adjust the size of the diamonds */
+    background-size: 45px 45px;
     background-color: rgba(255, 0, 0, 0.4);
-    background-repeat: repeat;
 }
 
 .foundation#clubs {
     background-image: url('https://upload.wikimedia.org/wikipedia/commons/8/8a/SuitClubs.svg');
-    background-size: 45px 45px; /* Adjust the size of the clubs */
+    background-size: 45px 45px;
     background-color: rgba(0, 0, 0, 0.4);
-    background-repeat: repeat;
 }
 
 .foundation#spades {
     background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/5b/SuitSpades.svg');
-    background-size: 45px 45px; /* Adjust the size of the spades */
+    background-size: 45px 45px;
     background-color: rgba(0, 0, 0, 0.4);
-    background-repeat: repeat;
 }

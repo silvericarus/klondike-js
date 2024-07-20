@@ -2,6 +2,56 @@ document.addEventListener("DOMContentLoaded", function () {
     start();
 });
 
+function drop(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    let data = ev.dataTransfer.getData("text");
+    let draggedElement = document.getElementById(data);
+    let target = ev.target;
+
+    while (target && !target.classList.contains('stack-cell') && !target.classList.contains('foundation')) {
+        target = target.parentElement;
+    }
+    if (target && (target.classList.contains('stack-cell') || target.classList.contains('foundation'))) {
+        if (target.classList.contains('stack-cell')) {
+            let lastChild = target.lastChild;
+            if (lastChild.classList !== undefined && lastChild.classList.contains('card-poker')) {
+                let lastChildZIndex = parseInt(lastChild.style.zIndex) || 0;
+                let lastChildTop = parseInt(lastChild.style.top) || 0;
+                draggedElement.style.zIndex = `${lastChildZIndex + 1}`;
+                draggedElement.style.top = `${-1 * (Math.abs(lastChildTop - 175))}px`;
+                target.appendChild(draggedElement);
+            }
+        } else if (target.classList.contains('foundation')) {
+            let lastChild = target.lastChild;
+            if (lastChild.classList !== undefined && lastChild.classList.contains('card-poker')) {
+                let lastChildZIndex = parseInt(lastChild.style.zIndex);
+                draggedElement.style.zIndex = `${lastChildZIndex + 1}`;
+                draggedElement.style.top = "0px";
+                target.appendChild(draggedElement);
+            } else {
+                draggedElement.style.zIndex = "0";
+                draggedElement.style.top = "0px";
+                target.appendChild(draggedElement);
+            }
+        }
+    }
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    let draggedElement = document.getElementById(ev.target.id);
+    let lastChild = draggedElement.parentElement.lastChild;
+    if (lastChild === draggedElement) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    } else {
+        ev.dataTransfer.setData("text", lastChild.id);
+    }
+}
+
 function randomizeCard() {
     let suit = ["&hearts;", "&diams;", "&clubs;", "&spades;"];
     let rank = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
@@ -103,5 +153,9 @@ function startGame() {
 }
 
 function start() {
+    document.getElementById("deck").addEventListener("click", function () {
+        //TODO Implement deck click event
+        alert("Deck clicked");
+    });
     startGame();
 }

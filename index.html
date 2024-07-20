@@ -10,33 +10,6 @@
     <link rel="stylesheet" href="./css/main.css">
     <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon">
     <script src="./js/main.js"></script>
-    <script>
-        function allowDrop(ev) {
-            ev.preventDefault();
-        }
-
-        function drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
-        }
-
-        function drop(ev) {
-            /*TODO modificar para que el z-index sea el correcto y el top se reprograme, 
-            tanto en la stack-cell como en los foundations*/
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            var draggedElement = document.getElementById(data);
-            var target = ev.target;
-
-            while (target && !target.classList.contains('stack-cell') && !target.classList.contains('foundation')) {
-                target = target.parentElement;
-            }
-            if (target && (target.classList.contains('stack-cell') || target.classList.contains('foundation'))) {
-                if (target.classList.contains('stack-cell') || target.classList.contains('foundation') || target.classList.contains('card-poker')) {
-                    target.appendChild(draggedElement);
-                }
-            }
-        }
-    </script>
     <title>Klondike.js</title>
 </head>
 
@@ -68,7 +41,7 @@
                         </div>
                     </div>
                     <div class="column">
-                        <div class="grid">
+                        <div class="grid grid-foundation">
                             <div class="cell foundation" id="hearts" ondrop="drop(event)" ondragover="allowDrop(event)">
                             </div>
                             <div class="cell foundation" id="diamonds" ondrop="drop(event)"
