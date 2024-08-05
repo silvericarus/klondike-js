@@ -2,6 +2,21 @@ document.addEventListener("DOMContentLoaded", function () {
     start();
 });
 
+function isOppositeColor(suit1, suit2) {
+    const redSuits = ["&hearts;", "&diams;"];
+    const blackSuits = ["&clubs;", "&spades;"];
+
+    return (
+        (redSuits.includes(suit1) && blackSuits.includes(suit2)) ||
+        (blackSuits.includes(suit1) && redSuits.includes(suit2))
+    );
+}
+
+function isCorrectNumber(number1, number2) {
+    const numbers = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+    return numbers.indexOf(number1) - 1 == numbers.indexOf(number2);
+}
+
 function drop(ev) {
     ev.preventDefault();
     ev.stopPropagation();
@@ -16,11 +31,17 @@ function drop(ev) {
         if (target.classList.contains('stack-cell')) {
             let lastChild = target.lastChild;
             if (lastChild.classList !== undefined && lastChild.classList.contains('card-poker')) {
-                let lastChildZIndex = parseInt(lastChild.style.zIndex) || 0;
-                let lastChildTop = parseInt(lastChild.style.top) || 0;
-                draggedElement.style.zIndex = `${lastChildZIndex + 1}`;
-                draggedElement.style.top = `${-1 * (Math.abs(lastChildTop - 175))}px`;
-                target.appendChild(draggedElement);
+                let lastChildNumber = /(\d+|A|J|Q|K)/.exec(lastChild.id)[0];
+                let lastChildSuit = /[^AJQK\d]+/.exec(lastChild.id)[0];
+                let draggedElementNumber = /(\d+|A|J|Q|K)/.exec(draggedElement.id)[0];
+                let draggedElementSuit = /[^AJQK\d]+/.exec(draggedElement.id)[0];
+                if (isCorrectNumber(lastChildNumber, draggedElementNumber) && isOppositeColor(lastChildSuit, draggedElementSuit)) {
+                    let lastChildZIndex = parseInt(lastChild.style.zIndex) || 0;
+                    let lastChildTop = parseInt(lastChild.style.top) || 0;
+                    draggedElement.style.zIndex = `${lastChildZIndex + 1}`;
+                    draggedElement.style.top = `${-1 * (Math.abs(lastChildTop - 175))}px`;
+                    target.appendChild(draggedElement);
+                }
             }
         } else if (target.classList.contains('foundation')) {
             let lastChild = target.lastChild;
