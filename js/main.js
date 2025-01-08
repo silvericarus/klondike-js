@@ -1,6 +1,11 @@
+import * as decks from "./decks.js";
+import * as tests from "./tests.js";
+
 document.addEventListener("DOMContentLoaded", function () {
     start();
 });
+
+let deck = decks.deck;
 
 function isOppositeColor(suit1, suit2) {
     const redSuits = ["&hearts;", "&diams;"];
@@ -74,11 +79,10 @@ function drag(ev) {
 }
 
 function randomizeCard() {
-    let suit = ["&hearts;", "&diams;", "&clubs;", "&spades;"];
-    let rank = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-    let selectedSuit = suit[Math.floor(Math.random() * suit.length)];
-    let selectedRank = rank[Math.floor(Math.random() * rank.length)];
-    return { suit: selectedSuit, rank: selectedRank };
+    let randomIndex = Math.floor(Math.random() * deck.length);
+    let selectedCard = deck[randomIndex];
+    decks.deck.splice(randomIndex, 1);
+    return selectedCard;
 }
 
 function startGame() {
@@ -88,10 +92,16 @@ function startGame() {
     let id;
     Array.from(playground.children).forEach((element, index) => {
         for (let i = 0; i < (index + 1); i++) {
-            let selected = randomizeCard();
-            suit = selected.suit;
-            rank = selected.rank;
-            id = `${rank}${suit}`;
+            do {
+                let selected = randomizeCard();
+                suit = selected.suit;
+                rank = selected.rank;
+                id = `${rank}${suit}`;
+                if (!decks.board.some(card => card.rank === rank && card.suit === suit)) {
+                    decks.board.push({ rank: rank, suit: suit});
+                    deck = deck.filter(card => card.rank !== rank || card.suit !== suit);
+                }
+            } while (decks.board.includes(id));
             if (i != index) {
                 let cardBack = document.createElement("div");
                 cardBack.classList.add("card-back");
@@ -179,4 +189,5 @@ function start() {
         alert("Deck clicked");
     });
     startGame();
+    //tests.runTests();
 }
