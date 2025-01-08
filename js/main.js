@@ -22,6 +22,10 @@ function isCorrectNumber(number1, number2) {
     return numbers.indexOf(number1) - 1 == numbers.indexOf(number2);
 }
 
+window.drop = drop;
+window.allowDrop = allowDrop;
+window.drag = drag;
+
 function drop(ev) {
     ev.preventDefault();
     ev.stopPropagation();
