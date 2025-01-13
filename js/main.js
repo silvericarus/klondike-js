@@ -6,6 +6,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 let deck = decks.deck;
+let ready = [];
+let suit;
+let rank;
+let id;
+let globalElement;
 
 function isOppositeColor(suit1, suit2) {
     const redSuits = ["&hearts;", "&diams;"];
@@ -91,9 +96,6 @@ function randomizeCard() {
 
 function startGame() {
     let playground = document.getElementById("playground");
-    let suit;
-    let rank;
-    let id;
     Array.from(playground.children).forEach((element, index) => {
         for (let i = 0; i < (index + 1); i++) {
             do {
@@ -106,6 +108,7 @@ function startGame() {
                     deck = deck.filter(card => card.rank !== rank || card.suit !== suit);
                 }
             } while (decks.board.includes(id));
+            globalElement = element;
             if (i != index) {
                 let cardBack = document.createElement("div");
                 cardBack.classList.add("card-back");
@@ -115,7 +118,7 @@ function startGame() {
                 cardBack.appendChild(cardBackPattern);
                 cardBack.style.zIndex = `${i}`;
                 cardBack.style.top = `${-175 * i}px`;
-                element.appendChild(cardBack);
+                globalElement.appendChild(cardBack);
             } else {
                 let card = document.createElement("div");
                 card.classList.add("card-poker");
@@ -181,7 +184,7 @@ function startGame() {
                 card.appendChild(cardFooter);
                 card.style.zIndex = `${i}`;
                 card.style.top = `${-175 * i}px`;
-                element.appendChild(card);
+                globalElement.appendChild(card);
             }
         }
     });
@@ -189,8 +192,82 @@ function startGame() {
 
 function start() {
     document.getElementById("deck").addEventListener("click", function () {
-        //TODO Implement deck click event
-        alert("Deck clicked");
+        globalElement = document.getElementById("heap");
+        for(let i = 0; i < 3; i++) {
+            ready.push(deck.shift());
+            id = `${ready[i].rank}${ready[i].suit}`;
+            rank = ready[i].rank;
+            suit = ready[i].suit;
+            let card = document.createElement("div");
+            card.classList.add("card-poker");
+            card.setAttribute("id", id);
+            card.setAttribute("draggable", "true");
+            card.setAttribute("ondragstart", "drag(event)");
+            card.setAttribute("ondrop", "drop(event)");
+            let cardHeader = document.createElement("div");
+            cardHeader.classList.add("card-header");
+
+            let cardRank = document.createElement("div");
+            cardRank.classList.add("card-rank");
+            cardRank.innerHTML = rank;
+
+            let cardSuit = document.createElement("div");
+            cardSuit.classList.add("card-suit");
+            if (suit == "&hearts;" || suit == "&diams;") {
+                cardSuit.classList.add("card-suit-red");
+            } else {
+                cardSuit.classList.add("card-suit-black");
+            }
+            cardSuit.innerHTML = suit;
+
+            cardHeader.appendChild(cardRank);
+            cardHeader.appendChild(cardSuit);
+            card.appendChild(cardHeader);
+
+            let cardBody = document.createElement("div");
+            cardBody.classList.add("card-body");
+
+            let cardSuitBig = document.createElement("div");
+            if (suit == "&hearts;" || suit == "&diams;") {
+                cardSuitBig.classList.add("card-suit-big-red");
+            } else {
+                cardSuitBig.classList.add("card-suit-big-black");
+            }
+            cardSuitBig.innerHTML = suit;
+
+            cardBody.appendChild(cardSuitBig);
+            card.appendChild(cardBody);
+
+            let cardFooter = document.createElement("div");
+            cardFooter.classList.add("card-footer");
+
+            let cardFooterContent = document.createElement("div");
+            cardFooterContent.classList.add("card-footer-content");
+
+            let cardRank1 = document.createElement("div");
+            cardRank1.classList.add("card-rank");
+            cardRank1.innerHTML = rank;
+
+            let cardSuit1 = document.createElement("div");
+            if (suit == "&hearts;" || suit == "&diams;") {
+                cardSuit1.classList.add("card-suit-red");
+            } else {
+                cardSuit1.classList.add("card-suit-black");
+            }
+            cardSuit1.innerHTML = suit;
+
+            cardFooterContent.appendChild(cardRank1);
+            cardFooterContent.appendChild(cardSuit1);
+            cardFooter.appendChild(cardFooterContent);
+            card.appendChild(cardFooter);
+            card.style.position = "absolute";
+            card.style.zIndex = `${ready.findIndex(card => card.rank === rank && card.suit === suit)}`;
+            card.style.top = "0px";
+            card.style.left = "0px";
+            globalElement.appendChild(card);
+        }
+        console.table(ready);
+        console.table(globalElement.childNodes);//FIXME The nodes aren't being added correctly
     });
     startGame();
     //tests.runTests();
